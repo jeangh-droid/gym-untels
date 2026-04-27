@@ -85,7 +85,27 @@ public class AuthServicio {
     }
 
     public TokenResponse refresh(String authHeader) {
-        return null;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Token Invalido");
+        }
+        final String jwtToken = authHeader.substring(7);
+        final String correoInstitucional = jwtServicio.extraerUsername(jwtToken);
+        if (correoInstitucional == null) {
+            throw new IllegalArgumentException("Correo vacío");
+        }
+        Usuario usuario = usuarioRepositorio.findByCorreoInstitucional(correoInstitucional)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        if (!jwtServicio.isTokenValid(usuario,jwtToken)) {
+            throw new IllegalArgumentException("Token invalido!!");
+        }
+        removerEstadoToken(usuario);
+        final String accessToken = jwtServicio.accessToken(usuario);
+        final String refreshToken = jwtServicio.refreshToken(usuario);
+        guardarToken(refreshToken, usuario);
+        return TokenResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     public void guardarToken(String jwtRefreshToken, Usuario usuario) {

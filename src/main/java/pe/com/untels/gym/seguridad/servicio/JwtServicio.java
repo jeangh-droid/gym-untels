@@ -1,5 +1,6 @@
 package pe.com.untels.gym.seguridad.servicio;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -44,5 +45,35 @@ public class JwtServicio {
         byte[] key = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(key);
     }
+
+    //En nuestro caso será extraer el correo institucional, pero igual lo llamaremos
+    //username ya que es más fácil identificar
+    public String extraerUsername(String jwtToken) {
+        final Claims jwtClaim = Jwts.parser()
+                .verifyWith(secretKey())
+                .build()
+                .parseSignedClaims(jwtToken)
+                .getPayload();
+        return jwtClaim.getSubject();
+    }
+
+    public boolean isTokenValid(Usuario usuario, String jwtToken) {
+        final String correoInstitucional = extraerUsername(jwtToken);
+        return correoInstitucional.equals(usuario.getCorreoInstitucional()) && !isTokenExpired(jwtToken);
+    }
+
+    private boolean isTokenExpired(String jwtToken) {
+        return extraerExpiracion(jwtToken).before(new Date());
+    }
+
+    public Date extraerExpiracion(String jwtToken) {
+        final Claims jwtClaim = Jwts.parser()
+                .verifyWith(secretKey())
+                .build()
+                .parseSignedClaims(jwtToken)
+                .getPayload();
+        return jwtClaim.getExpiration();
+    }
+
 
 }

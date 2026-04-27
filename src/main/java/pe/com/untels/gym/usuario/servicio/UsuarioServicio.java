@@ -1,0 +1,23 @@
+package pe.com.untels.gym.usuario.servicio;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import pe.com.untels.gym.seguridad.modelo.Usuario;
+import pe.com.untels.gym.seguridad.repositorio.UsuarioRepositorio;
+import pe.com.untels.gym.usuario.dto.UsuarioResponseDTO;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class UsuarioServicio implements IUsuarioServicio{
+    final UsuarioRepositorio usuarioRepositorio;
+
+    @Override
+    public List<UsuarioResponseDTO> listarUsuarios() {
+        List<Usuario> usuarios = usuarioRepositorio.findAll();
+        return usuarios.stream()
+                .map(UsuarioResponseDTO::new)
+                .toList();
+    }
+}

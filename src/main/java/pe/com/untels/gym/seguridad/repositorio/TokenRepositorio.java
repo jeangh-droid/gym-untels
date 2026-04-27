@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface TokenRepositorio extends JpaRepository<RefreshToken, Integer> {
     @Query("SELECT t FROM RefreshToken t WHERE (t.removido = false) AND t.usuario.idUsuario = :id")
     Optional<List<RefreshToken>> findAllRevokedIsFalseByUsuarioId(String id);
+    Optional<RefreshToken> findByToken(String token);
 }
