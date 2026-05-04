@@ -2,7 +2,7 @@ package pe.com.untels.gym.seguridad.repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pe.com.untels.gym.seguridad.modelo.Rol;
+import pe.com.untels.gym.seguridad.entidad.Rol;
 
 import java.util.Optional;
 

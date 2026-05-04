@@ -1,7 +1,7 @@
 package pe.com.untels.gym.usuario.dto;
 
 import lombok.Data;
-import pe.com.untels.gym.seguridad.modelo.Usuario;
+import pe.com.untels.gym.seguridad.entidad.Usuario;
 
 @Data
 public class UsuarioResponseDTO {
