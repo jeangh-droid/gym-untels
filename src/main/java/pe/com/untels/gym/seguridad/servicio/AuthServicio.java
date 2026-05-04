@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import pe.com.untels.gym.seguridad.dto.LoginRequest;
 import pe.com.untels.gym.seguridad.dto.RegistroRequest;
 import pe.com.untels.gym.seguridad.dto.TokenResponse;
-import pe.com.untels.gym.seguridad.modelo.RefreshToken;
-import pe.com.untels.gym.seguridad.modelo.Rol;
-import pe.com.untels.gym.seguridad.modelo.Usuario;
+import pe.com.untels.gym.seguridad.entidad.Token;
+import pe.com.untels.gym.seguridad.entidad.Rol;
+import pe.com.untels.gym.seguridad.entidad.Usuario;
 import pe.com.untels.gym.seguridad.repositorio.RolRepositorio;
 import pe.com.untels.gym.seguridad.repositorio.TokenRepositorio;
 import pe.com.untels.gym.seguridad.repositorio.UsuarioRepositorio;
@@ -75,9 +75,9 @@ public class AuthServicio {
     }
 
     public void removerEstadoToken(Usuario usuario) {
-        List<RefreshToken> tokens = tokenRepositorio.findAllRevokedIsFalseByUsuarioId(usuario.getIdUsuario().toString())
+        List<Token> tokens = tokenRepositorio.findAllRevokedIsFalseByUsuarioId(usuario.getIdUsuario().toString())
                 .orElseThrow();
-        for (RefreshToken token : tokens) {
+        for (Token token : tokens) {
             token.setRemovido(true);
             token.setExpirado(true);
         }
@@ -109,12 +109,12 @@ public class AuthServicio {
     }
 
     public void guardarToken(String jwtRefreshToken, Usuario usuario) {
-        RefreshToken refreshToken = RefreshToken.builder()
+        Token token = Token.builder()
                 .token(jwtRefreshToken)
                 .expirado(false)
                 .removido(false)
                 .usuario(usuario)
                 .build();
-        tokenRepositorio.save(refreshToken);
+        tokenRepositorio.save(token);
     }
 }

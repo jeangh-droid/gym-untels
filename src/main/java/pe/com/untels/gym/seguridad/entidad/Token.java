@@ -1,4 +1,4 @@
-package pe.com.untels.gym.seguridad.modelo;
+package pe.com.untels.gym.seguridad.entidad;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "refresh_tokens")
-public class RefreshToken {
+@Table(name = "tokens")
+public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
