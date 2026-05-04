@@ -1,12 +1,15 @@
 package pe.com.untels.gym.grupoMuscular.dtos;
 
+import lombok.Data;
+import pe.com.untels.gym.grupoMuscular.entities.GrupoMuscular;
+
+@Data
 public class GrupoMuscularDTO {
     private String nombre;
     private String colorIndicador;
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public String getColorIndicador() { return colorIndicador; }
-    public void setColorIndicador(String colorIndicador) { this.colorIndicador = colorIndicador; }
+    public GrupoMuscularDTO(GrupoMuscular grupoMuscular) {
+        this.nombre = grupoMuscular.getNombre();
+        this.colorIndicador = grupoMuscular.getColorIndicador();
+    }
 }

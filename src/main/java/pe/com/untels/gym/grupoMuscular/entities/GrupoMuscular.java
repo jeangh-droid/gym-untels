@@ -1,8 +1,16 @@
 package pe.com.untels.gym.grupoMuscular.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "GrupoMuscular")
 public class GrupoMuscular {
     @Id
@@ -20,27 +28,4 @@ public class GrupoMuscular {
 
     @Column(name = "colorIndicador")
     private String colorIndicador;
-
-    public GrupoMuscular() {
-    }
-
-    public GrupoMuscular(int idGrupo, String nombre, String descripcion, String imagenGrupo, String colorIndicador) {
-        this.idGrupo = idGrupo;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.imagenGrupo = imagenGrupo;
-        this.colorIndicador = colorIndicador;
-    }
-
-    // Getters y Setters (Sigue el mismo patrón que ICategoriaImcService)
-    public int getIdGrupo() { return idGrupo; }
-    public void setIdGrupo(int idGrupo) { this.idGrupo = idGrupo; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public String getImagenGrupo() { return imagenGrupo; }
-    public void setImagenGrupo(String imagenGrupo) { this.imagenGrupo = imagenGrupo; }
-    public String getColorIndicador() { return colorIndicador; }
-    public void setColorIndicador(String colorIndicador) { this.colorIndicador = colorIndicador; }
 }
