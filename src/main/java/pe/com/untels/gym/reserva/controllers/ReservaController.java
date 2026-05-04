@@ -1,6 +1,6 @@
 package pe.com.untels.gym.reserva.controllers;
 
-import org.modelmapper.ModelMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,65 +10,54 @@ import pe.com.untels.gym.reserva.dtos.ReservaInsertDTO;
 import pe.com.untels.gym.reserva.servicesinterfaces.IReservaService;
 import pe.com.untels.gym.reserva.modelo.Reserva;
 import pe.com.untels.gym.seguridad.modelo.Usuario;
+import pe.com.untels.gym.usuario.servicio.UsuarioServicio;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reservas")
+@RequiredArgsConstructor
 public class ReservaController {
     @Autowired
     private IReservaService rS;
+    final UsuarioServicio usuarioServicio;
 
     // HUF06: Historial de reservas
     @GetMapping("/historial/{idUsuario}")
     public ResponseEntity<List<ReservaDTO>> listarPorUsuario(@PathVariable int idUsuario) {
-        ModelMapper m = new ModelMapper();
-
         List<ReservaDTO> lista = rS.historialReserva(idUsuario)
                 .stream()
                 .map(r -> {
-                    ReservaDTO dto = m.map(r, ReservaDTO.class);
-                    dto.setIdUsuario(r.getUsuario().getIdUsuario());
+                    ReservaDTO dto = new ReservaDTO(r);
                     return dto;
                 })
                 .toList();
-
         return ResponseEntity.ok(lista);
     }
 
     // HUF02: Reservar un horario
     @PostMapping("/nuevo")
-    public ResponseEntity<ReservaInsertDTO> registrar(@RequestBody ReservaInsertDTO dto) {
-        ModelMapper m = new ModelMapper();
-
-        Reserva r = m.map(dto, Reserva.class);
-
-
-        Usuario u = new Usuario();
-        u.setIdUsuario(dto.getIdUsuario());
-        r.setUsuario(u);
-
-        Reserva saved = rS.insert(r);
-
-        ReservaInsertDTO response = m.map(saved, ReservaInsertDTO.class);
-        response.setIdUsuario(saved.getUsuario().getIdUsuario());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<ReservaDTO> registrar(@RequestBody ReservaInsertDTO dto) {
+        Usuario usuario = usuarioServicio.obtenerUsuario(dto.getIdUsuario());
+        Reserva r = new Reserva();
+        r.setUsuario(usuario);
+        r.setFechaReserva(dto.getFechaReserva());
+        r.setHoraInicio(dto.getHoraInicio());
+        r.setHoraFin(dto.getHoraFin());
+        r.setEstado(dto.getEstado());
+        ReservaDTO reservaDTO = new ReservaDTO(r);
+        return ResponseEntity.status(HttpStatus.CREATED).body(reservaDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = new ModelMapper();
-
         Optional<Reserva> reserva = rS.listId(id);
 
         if (reserva.isPresent()) {
             Reserva r = reserva.get();
-            ReservaInsertDTO dto = m.map(r, ReservaInsertDTO.class);
-            dto.setIdUsuario(r.getUsuario().getIdUsuario());
-
-            return ResponseEntity.ok(dto);
+            ReservaDTO reservaDTO = new ReservaDTO(r);
+            return ResponseEntity.ok(reservaDTO);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Reserva no encontrada");

@@ -6,10 +6,10 @@ import org.springframework.stereotype.Repository;
 import pe.com.untels.gym.reserva.modelo.Reserva;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface IReservaRepository extends JpaRepository<Reserva,Integer>
-{
+public interface IReservaRepository extends JpaRepository<Reserva,Integer> {
 
     // HUF06: Historial de reservas
     @Query("SELECT r FROM Reserva r WHERE r.usuario.idUsuario = :idUsuario " +

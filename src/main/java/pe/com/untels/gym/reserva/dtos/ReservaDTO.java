@@ -1,54 +1,24 @@
 package pe.com.untels.gym.reserva.dtos;
 
+import lombok.Data;
 import pe.com.untels.gym.reserva.modelo.Reserva;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Data
 public class ReservaDTO {
-    private int idUsuario;
+    private Integer idReserva;
     private LocalDate fechaReserva;
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private Reserva.EstadoReserva estado;
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public LocalDate getFechaReserva() {
-        return fechaReserva;
-    }
-
-    public void setFechaReserva(LocalDate fechaReserva) {
-        this.fechaReserva = fechaReserva;
-    }
-
-    public LocalTime getHoraInicio() {
-        return horaInicio;
-    }
-
-    public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public Reserva.EstadoReserva getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Reserva.EstadoReserva estado) {
-        this.estado = estado;
-    }
-
-    public LocalTime getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(LocalTime horaFin) {
-        this.horaFin = horaFin;
+    public ReservaDTO(Reserva reserva) {
+        this.idReserva = reserva.getIdReserva();
+        this.fechaReserva = reserva.getFechaReserva();
+        this.horaInicio = reserva.getHoraInicio();
+        this.horaFin = reserva.getHoraFin();
+        this.estado = reserva.getEstado();
     }
 }
