@@ -1,5 +1,7 @@
 package pe.com.untels.gym.reserva.dtos;
 
+import pe.com.untels.gym.reserva.modelo.Reserva;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -8,20 +10,45 @@ public class ReservaDTO {
     private LocalDate fechaReserva;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-    private String estado;
+    private Reserva.EstadoReserva estado;
 
-    public int getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
+    public int getIdUsuario() {
+        return idUsuario;
+    }
 
-    public LocalDate getFechaReserva() { return fechaReserva; }
-    public void setFechaReserva(LocalDate fechaReserva) { this.fechaReserva = fechaReserva; }
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
-    public LocalTime getHoraInicio() { return horaInicio; }
-    public void setHoraInicio(LocalTime horaInicio) { this.horaInicio = horaInicio; }
+    public LocalDate getFechaReserva() {
+        return fechaReserva;
+    }
 
-    public LocalTime getHoraFin() { return horaFin; }
-    public void setHoraFin(LocalTime horaFin) { this.horaFin = horaFin; }
+    public void setFechaReserva(LocalDate fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public Reserva.EstadoReserva getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Reserva.EstadoReserva estado) {
+        this.estado = estado;
+    }
+
+    public LocalTime getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
+    }
 }

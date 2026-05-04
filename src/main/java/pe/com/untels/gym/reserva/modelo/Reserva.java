@@ -27,8 +27,16 @@ public class Reserva {
     @Column(name = "horaFin", nullable = false)
     private LocalTime horaFin;
 
+    public enum EstadoReserva {
+        PENDIENTE,
+        ASISTIDO,
+        CANCELADO,
+        NO_ASISTIO
+    }
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
-    private String estado;
+    private EstadoReserva estado;
 
     @Column(name = "fechaCreacion", nullable = false)
     private LocalDate fechaCreacion;
@@ -39,7 +47,7 @@ public class Reserva {
         this.idReserva = idReserva;
     }
 
-    public Reserva(int idReserva, Usuario usuario, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, String estado, LocalDate fechaCreacion) {
+    public Reserva(int idReserva, Usuario usuario, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, EstadoReserva estado, LocalDate fechaCreacion) {
         this.idReserva = idReserva;
         this.usuario = usuario;
         this.fechaReserva = fechaReserva;
@@ -81,20 +89,20 @@ public class Reserva {
         this.horaInicio = horaInicio;
     }
 
+    public EstadoReserva getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoReserva estado) {
+        this.estado = estado;
+    }
+
     public LocalTime getHoraFin() {
         return horaFin;
     }
 
     public void setHoraFin(LocalTime horaFin) {
         this.horaFin = horaFin;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public LocalDate getFechaCreacion() {

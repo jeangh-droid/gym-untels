@@ -20,11 +20,12 @@ public class ReservaController {
     @Autowired
     private IReservaService rS;
 
-    @GetMapping("/lista")
-    public ResponseEntity<List<ReservaDTO>> listar() {
+    // HUF06: Historial de reservas
+    @GetMapping("/historial/{idUsuario}")
+    public ResponseEntity<List<ReservaDTO>> listarPorUsuario(@PathVariable int idUsuario) {
         ModelMapper m = new ModelMapper();
 
-        List<ReservaDTO> lista = rS.list()
+        List<ReservaDTO> lista = rS.historialReserva(idUsuario)
                 .stream()
                 .map(r -> {
                     ReservaDTO dto = m.map(r, ReservaDTO.class);
@@ -36,6 +37,7 @@ public class ReservaController {
         return ResponseEntity.ok(lista);
     }
 
+    // HUF02: Reservar un horario
     @PostMapping("/nuevo")
     public ResponseEntity<ReservaInsertDTO> registrar(@RequestBody ReservaInsertDTO dto) {
         ModelMapper m = new ModelMapper();

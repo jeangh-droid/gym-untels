@@ -28,4 +28,15 @@ public class ReservaServiceImplement implements IReservaService {
     public Optional<Reserva> listId(int id) {
         return rR.findById(id);
     }
+
+    public List<Reserva> historialReserva(int idUsuario){
+    //Falta agregar la logica de NO_ASISTIO (el sistema lo tiene que hacer)
+        return rR.findHistorialByUsuario(idUsuario,
+                List.of(
+                Reserva.EstadoReserva.ASISTIDO,
+                Reserva.EstadoReserva.CANCELADO,
+                Reserva.EstadoReserva.NO_ASISTIO
+            )
+        );
+    }
 }
