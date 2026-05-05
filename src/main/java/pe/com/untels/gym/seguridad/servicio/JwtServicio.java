@@ -57,15 +57,6 @@ public class JwtServicio {
         return jwtClaim.getSubject();
     }
 
-    public boolean isTokenValid(Usuario usuario, String jwtToken) {
-        final String correoInstitucional = extraerUsername(jwtToken);
-        return correoInstitucional.equals(usuario.getCorreoInstitucional()) && !isTokenExpired(jwtToken);
-    }
-
-    private boolean isTokenExpired(String jwtToken) {
-        return extraerExpiracion(jwtToken).before(new Date());
-    }
-
     public Date extraerExpiracion(String jwtToken) {
         final Claims jwtClaim = Jwts.parser()
                 .verifyWith(secretKey())
@@ -73,6 +64,24 @@ public class JwtServicio {
                 .parseSignedClaims(jwtToken)
                 .getPayload();
         return jwtClaim.getExpiration();
+    }
+
+    public String extraerRol(String jwtToken) {
+        final Claims claims = Jwts.parser()
+                .verifyWith(secretKey())
+                .build()
+                .parseSignedClaims(jwtToken)
+                .getPayload();
+        return claims.get("rol").toString();
+    }
+
+    public boolean isTokenValid(Usuario usuario, String jwtToken) {
+        final String correoInstitucional = extraerUsername(jwtToken);
+        return correoInstitucional.equals(usuario.getCorreoInstitucional()) && !isTokenExpired(jwtToken);
+    }
+
+    private boolean isTokenExpired(String jwtToken) {
+        return extraerExpiracion(jwtToken).before(new Date());
     }
 
 
