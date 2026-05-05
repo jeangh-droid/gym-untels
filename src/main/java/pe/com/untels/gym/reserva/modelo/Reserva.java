@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pe.com.untels.gym.seguridad.modelo.Usuario;
+import pe.com.untels.gym.seguridad.entidad.Usuario;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -51,9 +51,11 @@ public class Reserva {
 
     @PrePersist
     private void auto() {
-        this.fechaReserva = LocalDate.now();
-        this.horaInicio = LocalTime.now();
-        this.horaFin = LocalTime.now();
-        this.fechaCreacion = LocalDate.now();
+        if (this.fechaCreacion == null) {
+            this.fechaCreacion = LocalDate.now();
+        }
+        if (this.estado == null) {
+            this.estado = EstadoReserva.PENDIENTE;
+        }
     }
 }
