@@ -2,7 +2,7 @@ package pe.com.untels.gym.reserva.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pe.com.untels.gym.reserva.modelo.Reserva;
+import pe.com.untels.gym.reserva.entities.Reserva;
 import pe.com.untels.gym.reserva.repositories.IReservaRepository;
 import pe.com.untels.gym.reserva.servicesinterfaces.IReservaService;
 

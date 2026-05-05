@@ -1,6 +1,6 @@
-package pe.com.untels.gym.usuario.servicio;
+package pe.com.untels.gym.usuario.services;
 
-import pe.com.untels.gym.usuario.dto.UsuarioResponseDTO;
+import pe.com.untels.gym.usuario.dtos.UsuarioResponseDTO;
 
 import java.util.List;
 

@@ -13,10 +13,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import pe.com.untels.gym.seguridad.entidad.Usuario;
-import pe.com.untels.gym.seguridad.repositorio.TokenRepositorio;
-import pe.com.untels.gym.seguridad.repositorio.UsuarioRepositorio;
-import pe.com.untels.gym.seguridad.servicio.JwtServicio;
+import pe.com.untels.gym.seguridad.entities.Usuario;
+import pe.com.untels.gym.seguridad.repositories.TokenRepositorio;
+import pe.com.untels.gym.seguridad.repositories.UsuarioRepositorio;
+import pe.com.untels.gym.seguridad.services.JwtServicio;
 
 import java.io.IOException;
 import java.util.Optional;

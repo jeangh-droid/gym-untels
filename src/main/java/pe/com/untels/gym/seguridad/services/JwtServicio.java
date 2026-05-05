@@ -1,4 +1,4 @@
-package pe.com.untels.gym.seguridad.servicio;
+package pe.com.untels.gym.seguridad.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -6,7 +6,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import pe.com.untels.gym.seguridad.entidad.Usuario;
+import pe.com.untels.gym.seguridad.entities.Usuario;
 
 import javax.crypto.SecretKey;
 import java.util.Date;

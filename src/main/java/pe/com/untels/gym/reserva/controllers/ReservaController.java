@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import pe.com.untels.gym.reserva.dtos.ReservaDTO;
 import pe.com.untels.gym.reserva.dtos.ReservaInsertDTO;
 import pe.com.untels.gym.reserva.servicesinterfaces.IReservaService;
-import pe.com.untels.gym.reserva.modelo.Reserva;
-import pe.com.untels.gym.seguridad.modelo.Usuario;
-import pe.com.untels.gym.usuario.servicio.UsuarioServicio;
+import pe.com.untels.gym.reserva.entities.Reserva;
+import pe.com.untels.gym.seguridad.entities.Usuario;
+import pe.com.untels.gym.usuario.services.UsuarioServicio;
 
 import java.util.List;
 import java.util.Optional;

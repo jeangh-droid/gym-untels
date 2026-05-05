@@ -1,11 +1,11 @@
-package pe.com.untels.gym.reserva.modelo;
+package pe.com.untels.gym.reserva.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pe.com.untels.gym.seguridad.entidad.Usuario;
+import pe.com.untels.gym.seguridad.entities.Usuario;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

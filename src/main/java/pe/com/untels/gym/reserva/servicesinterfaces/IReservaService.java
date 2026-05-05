@@ -1,6 +1,6 @@
 package pe.com.untels.gym.reserva.servicesinterfaces;
 
-import pe.com.untels.gym.reserva.modelo.Reserva;
+import pe.com.untels.gym.reserva.entities.Reserva;
 
 import java.util.List;
 import java.util.Optional;

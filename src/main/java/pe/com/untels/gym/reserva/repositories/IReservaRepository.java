@@ -3,10 +3,9 @@ package pe.com.untels.gym.reserva.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import pe.com.untels.gym.reserva.modelo.Reserva;
+import pe.com.untels.gym.reserva.entities.Reserva;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface IReservaRepository extends JpaRepository<Reserva,Integer> {

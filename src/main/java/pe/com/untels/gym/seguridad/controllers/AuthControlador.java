@@ -1,13 +1,13 @@
-package pe.com.untels.gym.seguridad.controlador;
+package pe.com.untels.gym.seguridad.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.com.untels.gym.seguridad.dto.LoginRequest;
-import pe.com.untels.gym.seguridad.dto.RegistroRequest;
-import pe.com.untels.gym.seguridad.dto.TokenResponse;
-import pe.com.untels.gym.seguridad.servicio.AuthServicio;
+import pe.com.untels.gym.seguridad.dtos.LoginRequest;
+import pe.com.untels.gym.seguridad.dtos.RegistroRequest;
+import pe.com.untels.gym.seguridad.dtos.TokenResponse;
+import pe.com.untels.gym.seguridad.services.AuthServicio;
 
 @RestController
 @RequestMapping("/auth")

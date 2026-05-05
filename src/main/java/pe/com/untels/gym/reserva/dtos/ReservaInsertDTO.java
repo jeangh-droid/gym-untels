@@ -1,7 +1,7 @@
 package pe.com.untels.gym.reserva.dtos;
 
 import lombok.Data;
-import pe.com.untels.gym.reserva.modelo.Reserva;
+import pe.com.untels.gym.reserva.entities.Reserva;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

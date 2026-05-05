@@ -1,10 +1,10 @@
-package pe.com.untels.gym.usuario.servicio;
+package pe.com.untels.gym.usuario.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pe.com.untels.gym.seguridad.entidad.Usuario;
-import pe.com.untels.gym.seguridad.repositorio.UsuarioRepositorio;
-import pe.com.untels.gym.usuario.dto.UsuarioResponseDTO;
+import pe.com.untels.gym.seguridad.entities.Usuario;
+import pe.com.untels.gym.seguridad.repositories.UsuarioRepositorio;
+import pe.com.untels.gym.usuario.dtos.UsuarioResponseDTO;
 
 import java.util.List;
 
