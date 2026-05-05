@@ -20,4 +20,9 @@ public class UsuarioServicio implements IUsuarioServicio{
                 .map(UsuarioResponseDTO::new)
                 .toList();
     }
+
+    public Usuario obtenerUsuario(Integer id) {
+        return usuarioRepositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
 }
