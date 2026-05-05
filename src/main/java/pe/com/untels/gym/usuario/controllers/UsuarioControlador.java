@@ -1,4 +1,4 @@
-package pe.com.untels.gym.usuario.controlador;
+package pe.com.untels.gym.usuario.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,8 +7,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pe.com.untels.gym.usuario.dto.UsuarioResponseDTO;
-import pe.com.untels.gym.usuario.servicio.UsuarioServicio;
+import pe.com.untels.gym.usuario.dtos.UsuarioResponseDTO;
+import pe.com.untels.gym.usuario.services.UsuarioServicio;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package pe.com.untels.gym.seguridad.dto;
+package pe.com.untels.gym.seguridad.dtos;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

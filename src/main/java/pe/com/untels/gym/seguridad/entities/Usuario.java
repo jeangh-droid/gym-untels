@@ -1,4 +1,4 @@
-package pe.com.untels.gym.seguridad.entidad;
+package pe.com.untels.gym.seguridad.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

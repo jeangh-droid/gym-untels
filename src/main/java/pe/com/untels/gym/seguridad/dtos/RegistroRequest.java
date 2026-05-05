@@ -1,4 +1,4 @@
-package pe.com.untels.gym.seguridad.dto;
+package pe.com.untels.gym.seguridad.dtos;
 
 import lombok.Data;
 import java.time.LocalDate;

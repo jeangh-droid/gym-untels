@@ -1,8 +1,8 @@
-package pe.com.untels.gym.seguridad.repositorio;
+package pe.com.untels.gym.seguridad.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pe.com.untels.gym.seguridad.entidad.Usuario;
+import pe.com.untels.gym.seguridad.entities.Usuario;
 
 import java.util.Optional;
 

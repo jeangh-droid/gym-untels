@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import pe.com.untels.gym.seguridad.entidad.Usuario;
-import pe.com.untels.gym.seguridad.repositorio.UsuarioRepositorio;
+import pe.com.untels.gym.seguridad.entities.Usuario;
+import pe.com.untels.gym.seguridad.repositories.UsuarioRepositorio;
 
 @Configuration
 @RequiredArgsConstructor

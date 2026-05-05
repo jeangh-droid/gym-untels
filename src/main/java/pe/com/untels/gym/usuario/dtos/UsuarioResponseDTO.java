@@ -1,7 +1,7 @@
-package pe.com.untels.gym.usuario.dto;
+package pe.com.untels.gym.usuario.dtos;
 
 import lombok.Data;
-import pe.com.untels.gym.seguridad.entidad.Usuario;
+import pe.com.untels.gym.seguridad.entities.Usuario;
 
 @Data
 public class UsuarioResponseDTO {
