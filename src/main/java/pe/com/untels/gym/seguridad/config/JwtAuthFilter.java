@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +21,7 @@ import pe.com.untels.gym.seguridad.repositories.UsuarioRepositorio;
 import pe.com.untels.gym.seguridad.services.JwtServicio;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -48,6 +51,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
+        final String rol = jwtServicio.extraerRol(jwtToken);
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(rol));
         final UserDetails userDetails = userDetailsService.loadUserByUsername(correoInstitucional);
         final Optional<Usuario> usuario = usuarioRepositorio.findByCorreoInstitucional(userDetails.getUsername());
 
@@ -65,7 +70,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final var authToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 null,
-                userDetails.getAuthorities()
+                authorities
         );
 
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

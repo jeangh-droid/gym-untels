@@ -20,12 +20,12 @@ public class Rol {
     private Integer idRol;
 
     public enum TipoRol {
-        ADMIN,
-        USUARIO
+        ROLE_ADMIN,
+        ROLE_USUARIO
     }
 
     @Enumerated(EnumType.STRING)
-    private TipoRol privilegio = TipoRol.USUARIO;
+    private TipoRol privilegio = TipoRol.ROLE_USUARIO;
 
     @OneToMany(mappedBy = "rol")
     private List<Usuario> usuarios;

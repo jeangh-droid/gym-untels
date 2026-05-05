@@ -29,7 +29,7 @@ public class AuthServicio {
     final AuthenticationManager authenticationManager;
 
     public TokenResponse registro(RegistroRequest request) {
-        Rol rol = rolRepositorio.findByPrivilegio(Rol.TipoRol.USUARIO)
+        Rol rol = rolRepositorio.findByPrivilegio(Rol.TipoRol.ROLE_USUARIO)
                 .orElseThrow(() -> new RuntimeException("Rol no registrado"));
         Usuario usuario = Usuario.builder()
                 .codigoUniversitario(request.getCodigoUniversitario())
