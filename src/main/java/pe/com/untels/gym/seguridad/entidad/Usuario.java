@@ -1,4 +1,4 @@
-package pe.com.untels.gym.seguridad.modelo;
+package pe.com.untels.gym.seguridad.entidad;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -60,7 +60,7 @@ public class Usuario {
     private Rol rol;
 
     @OneToMany(mappedBy = "usuario")
-    private List<RefreshToken> refreshTokens;
+    private List<Token> tokens;
 
     @PrePersist
     public void prePersist() {

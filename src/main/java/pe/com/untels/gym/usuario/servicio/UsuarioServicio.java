@@ -2,7 +2,7 @@ package pe.com.untels.gym.usuario.servicio;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pe.com.untels.gym.seguridad.modelo.Usuario;
+import pe.com.untels.gym.seguridad.entidad.Usuario;
 import pe.com.untels.gym.seguridad.repositorio.UsuarioRepositorio;
 import pe.com.untels.gym.usuario.dto.UsuarioResponseDTO;
 
