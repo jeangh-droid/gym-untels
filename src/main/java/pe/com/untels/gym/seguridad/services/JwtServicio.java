@@ -84,5 +84,4 @@ public class JwtServicio {
         return extraerExpiracion(jwtToken).before(new Date());
     }
 
-
 }
