@@ -1,6 +1,5 @@
 package pe.com.untels.gym.rutina.controllers;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,20 +18,21 @@ public class RutinaController {
     private IRutinaService rS;
     @GetMapping("/lista")
     public ResponseEntity<List<RutinaDTO>>listar(){
-        ModelMapper m=new ModelMapper();
-        List<RutinaDTO> listaRutina= rS.list()
-                .stream().map(y->m.map(y, RutinaDTO.class))
+        List<Rutina> listaRutina = rS.list();
+        List<RutinaDTO> listaRutinaDTO= listaRutina.stream()
+                .map(RutinaDTO::new)
                 .toList();
-
-        return ResponseEntity.ok(listaRutina);
+        return ResponseEntity.ok(listaRutinaDTO);
     }
 
     @PostMapping("/nuevo")
-    public ResponseEntity<RutinaInsertDTO> registrar(@RequestBody RutinaDTO dto){
-        ModelMapper m=new ModelMapper();
-        Rutina c=m.map(dto, Rutina.class);
-        Rutina cur= rS.insert(c);
-        RutinaInsertDTO responseDTO=m.map(cur,RutinaInsertDTO.class);
+    public ResponseEntity<RutinaDTO> registrar(@RequestBody RutinaInsertDTO dto){
+        Rutina rutina = new Rutina();
+        rutina.setNombre(dto.getNombre());
+        rutina.setDescripcion(dto.getDescripcion());
+        rutina.setFechaCreacion(dto.getFechaCreacion());
+        Rutina cur= rS.insert(rutina);
+        RutinaDTO responseDTO = new RutinaDTO(cur);
         return  ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
