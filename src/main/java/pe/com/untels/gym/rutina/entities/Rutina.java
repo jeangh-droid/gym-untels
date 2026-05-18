@@ -1,6 +1,7 @@
 package pe.com.untels.gym.rutina.entities;
 
 import jakarta.persistence.*;
+import pe.com.untels.gym.seguridad.entities.Usuario;
 
 import java.time.LocalDate;
 @Entity
