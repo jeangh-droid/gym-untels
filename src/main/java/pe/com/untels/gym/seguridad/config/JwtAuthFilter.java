@@ -63,6 +63,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final boolean isTokenValid = jwtServicio.isTokenValid(usuario.get(),jwtToken);
         if (!isTokenValid) {
+            tokenRepositorio.findAllRevokedIsFalseByUsuarioId(String.valueOf(usuario.get().getIdUsuario()));
             filterChain.doFilter(request,response);
             return;
         }
