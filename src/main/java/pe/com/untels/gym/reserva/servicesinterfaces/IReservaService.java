@@ -10,4 +10,5 @@ public interface IReservaService {
     public Reserva insert(Reserva r);
     public Optional<Reserva> listId(int id);
     public List<Reserva> historialReserva(int idUsuario);
+    void cambiarEstado(int idEstado, Reserva.EstadoReserva estadoReserva);
 }
