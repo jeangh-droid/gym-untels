@@ -9,4 +9,5 @@ public interface IRutinaService {
     public List<Rutina>list();
     public Rutina insert(Rutina r);
     public Optional<Rutina> listid(int id);
+    void delete(int id);
 }
