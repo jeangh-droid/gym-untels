@@ -26,5 +26,8 @@ public class CategoriaImcServiceImplement implements ICategoriaImcService {
     public Optional<CategoriaImc> listId(int id) {
         return provR.findById(id);
     }
-
+    @Override
+    public void delete(int id) {
+        provR.deleteById(id);
+    }
 }
