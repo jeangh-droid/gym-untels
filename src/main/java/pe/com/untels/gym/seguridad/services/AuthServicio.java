@@ -1,4 +1,4 @@
-package pe.com.untels.gym.seguridad.servicio;
+package pe.com.untels.gym.seguridad.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -6,17 +6,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pe.com.untels.gym.seguridad.dto.LoginRequest;
-import pe.com.untels.gym.seguridad.dto.RegistroRequest;
-import pe.com.untels.gym.seguridad.dto.TokenResponse;
-import pe.com.untels.gym.seguridad.modelo.RefreshToken;
-import pe.com.untels.gym.seguridad.modelo.Rol;
-import pe.com.untels.gym.seguridad.modelo.Usuario;
-import pe.com.untels.gym.seguridad.repositorio.RolRepositorio;
-import pe.com.untels.gym.seguridad.repositorio.TokenRepositorio;
-import pe.com.untels.gym.seguridad.repositorio.UsuarioRepositorio;
+import pe.com.untels.gym.seguridad.dtos.LoginRequest;
+import pe.com.untels.gym.seguridad.dtos.RegistroRequest;
+import pe.com.untels.gym.seguridad.dtos.TokenResponse;
+import pe.com.untels.gym.seguridad.entities.Token;
+import pe.com.untels.gym.seguridad.entities.Rol;
+import pe.com.untels.gym.seguridad.entities.Usuario;
+import pe.com.untels.gym.seguridad.repositories.RolRepositorio;
+import pe.com.untels.gym.seguridad.repositories.TokenRepositorio;
+import pe.com.untels.gym.seguridad.repositories.UsuarioRepositorio;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class AuthServicio {
     final AuthenticationManager authenticationManager;
 
     public TokenResponse registro(RegistroRequest request) {
-        Rol rol = rolRepositorio.findByPrivilegio(Rol.TipoRol.USUARIO)
+        Rol rol = rolRepositorio.findByPrivilegio(request.getRol())
                 .orElseThrow(() -> new RuntimeException("Rol no registrado"));
         Usuario usuario = Usuario.builder()
                 .codigoUniversitario(request.getCodigoUniversitario())
@@ -60,7 +61,7 @@ public class AuthServicio {
                 new UsernamePasswordAuthenticationToken(
                         request.getCorreoInstitucional(),
                         request.getContrasena()
-                        )
+                )
         );
         Usuario usuario = usuarioRepositorio.findByCorreoInstitucional(request.getCorreoInstitucional())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
@@ -75,9 +76,9 @@ public class AuthServicio {
     }
 
     public void removerEstadoToken(Usuario usuario) {
-        List<RefreshToken> tokens = tokenRepositorio.findAllRevokedIsFalseByUsuarioId(usuario.getIdUsuario().toString())
+        List<Token> tokens = tokenRepositorio.findAllRevokedIsFalseByUsuarioId(usuario.getIdUsuario().toString())
                 .orElseThrow();
-        for (RefreshToken token : tokens) {
+        for (Token token : tokens) {
             token.setRemovido(true);
             token.setExpirado(true);
         }
@@ -109,12 +110,29 @@ public class AuthServicio {
     }
 
     public void guardarToken(String jwtRefreshToken, Usuario usuario) {
-        RefreshToken refreshToken = RefreshToken.builder()
+        Token token = Token.builder()
                 .token(jwtRefreshToken)
                 .expirado(false)
                 .removido(false)
                 .usuario(usuario)
                 .build();
-        tokenRepositorio.save(refreshToken);
+        tokenRepositorio.save(token);
+    }
+
+    public boolean logout(String id) {
+        Optional<Usuario> usuario = usuarioRepositorio.findById(Integer.parseInt(id));
+        if (usuario.isEmpty()) {
+            throw new UsernameNotFoundException("UsuarIO no registrado en bd");
+        }
+        Optional<List<Token>> tokens = tokenRepositorio.findAllRevokedIsFalseByUsuarioId(id);
+        if (tokens.isEmpty()) {
+            throw new RuntimeException("Lista de Tokens vacía");
+        }
+        tokens.get().forEach((token) -> {
+            token.setExpirado(true);
+            token.setRemovido(true);
+        });
+        tokenRepositorio.saveAll(tokens.get());
+        return true;
     }
 }
