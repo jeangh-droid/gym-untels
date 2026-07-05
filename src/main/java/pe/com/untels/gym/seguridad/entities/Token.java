@@ -16,7 +16,7 @@ public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idRefreshToken;
+    private Integer idToken;
 
     @Column(nullable = false)
     private String token;
