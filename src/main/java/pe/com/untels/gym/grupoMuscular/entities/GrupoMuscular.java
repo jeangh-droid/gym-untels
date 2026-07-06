@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class GrupoMuscular {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idGrupo;
+    private Integer idGrupo;
 
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;

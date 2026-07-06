@@ -8,4 +8,6 @@ public interface IGrupoMuscularService {
     public List<GrupoMuscular> list();
     public GrupoMuscular insert(GrupoMuscular gm);
     public Optional<GrupoMuscular> listId(int id);
+    void delete(int id);
+    GrupoMuscular update(GrupoMuscular gm);
 }

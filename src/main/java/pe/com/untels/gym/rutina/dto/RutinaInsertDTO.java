@@ -8,6 +8,5 @@ public class RutinaInsertDTO {
     private String nombre;
     private String descripcion;
     private LocalDate fechaCreacion;
-
-
+    private Integer idUsuario;
 }

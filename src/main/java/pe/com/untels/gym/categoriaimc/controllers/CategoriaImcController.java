@@ -1,6 +1,9 @@
 package pe.com.untels.gym.categoriaimc.controllers;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 import pe.com.untels.gym.categoriaimc.dtos.CategoriaImcDTO;
 import pe.com.untels.gym.categoriaimc.dtos.CategoriaImcInsertDTO;
@@ -14,38 +17,48 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/CategoriaIMC")
+@EnableMethodSecurity
 public class CategoriaImcController {
     @Autowired
-    private ICategoriaImcService pS;
+    private ICategoriaImcService categoriaImcService;
 
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     @GetMapping("/lista")
     public ResponseEntity<List<CategoriaImcDTO>> lista(){
-        List<CategoriaImcDTO> listaCategoriaIMC = pS.list().stream()
-                .map(CategoriaImcDTO::new)
+        ModelMapper modelMapper = new ModelMapper();
+        List<CategoriaImc> categoriasImc = categoriaImcService.list();
+        List<CategoriaImcDTO> listaCategoriaIMC = categoriasImc.stream()
+                .map(categoriaImc -> modelMapper.map(categoriaImc, CategoriaImcDTO.class))
                 .toList();
         return ResponseEntity.ok(listaCategoriaIMC);
     }
 
     @PostMapping("/nuevo")
-    public ResponseEntity<CategoriaImcInsertDTO> registrar(@RequestBody CategoriaImcInsertDTO dto){
-        CategoriaImc c = new CategoriaImc();
-        c.setNombre(dto.getNombre());
-        c.setRangoMax(dto.getRangoMax());
-        c.setRangoMin(dto.getRangoMin());
-        CategoriaImcInsertDTO responseDTO = new CategoriaImcInsertDTO(pS.insert(c));
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<CategoriaImcInsertDTO> registrar(@RequestBody CategoriaImcInsertDTO request){
+        ModelMapper modelMapper = new ModelMapper();
+        CategoriaImc categoriaImc = modelMapper.map(request, CategoriaImc.class);
+        CategoriaImcInsertDTO responseDTO = modelMapper.map(categoriaImcService.insert(categoriaImc), CategoriaImcInsertDTO.class);
         return  ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        Optional<CategoriaImc> categoriaimc = pS.listId(id);
-
-        if (categoriaimc.isPresent()) {
-            CategoriaImcInsertDTO dto = new CategoriaImcInsertDTO(categoriaimc.get());
-            return ResponseEntity.ok(dto);
-        } else {
+        Optional<CategoriaImc> categoriaimc = categoriaImcService.listId(id);
+        if (categoriaimc.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Categoria no encontrada");
         }
+        ModelMapper modelMapper = new ModelMapper();
+        CategoriaImcInsertDTO response = modelMapper.map(categoriaimc, CategoriaImcInsertDTO.class);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> eliminar(@PathVariable int id) {
+        categoriaImcService.delete(id);
+        return ResponseEntity.ok("Categoría eliminada");
     }
 }

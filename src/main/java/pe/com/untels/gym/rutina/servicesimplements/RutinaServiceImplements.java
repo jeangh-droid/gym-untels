@@ -28,4 +28,9 @@ public class RutinaServiceImplements implements IRutinaService {
     public Optional<Rutina> listid(int id) {
         return Optional.empty();
     }
+
+    @Override
+    public void delete(int id) {
+        rutR.deleteById(id);
+    }
 }
