@@ -1,6 +1,8 @@
 package pe.com.untels.gym.seguridad.dtos;
 
 import lombok.Data;
+import pe.com.untels.gym.seguridad.entities.Rol;
+
 import java.time.LocalDate;
 
 @Data
@@ -16,4 +18,5 @@ public class RegistroRequest {
     private Integer nivel;
     private String objetivo;
     private Integer diasEntrenamiento;
+    private Rol.TipoRol rol;
 }

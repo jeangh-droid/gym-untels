@@ -2,6 +2,7 @@ package pe.com.untels.gym.seguridad.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.com.untels.gym.seguridad.dtos.LoginRequest;
@@ -28,5 +29,13 @@ public class AuthControlador {
     @PostMapping("/refresh")
     public ResponseEntity<TokenResponse> refresh(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
         return ResponseEntity.ok(servicio.refresh(authHeader));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> logout(@PathVariable String id) {
+        if (!servicio.logout(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ocurrio un problema en el proceso");
+        }
+        return ResponseEntity.ok("Logout exitoso, regrese pronto...");
     }
 }
