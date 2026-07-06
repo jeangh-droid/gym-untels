@@ -17,6 +17,7 @@ import pe.com.untels.gym.seguridad.repositories.TokenRepositorio;
 import pe.com.untels.gym.seguridad.repositories.UsuarioRepositorio;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class AuthServicio {
     final AuthenticationManager authenticationManager;
 
     public TokenResponse registro(RegistroRequest request) {
-        Rol rol = rolRepositorio.findByPrivilegio(Rol.TipoRol.ROLE_USUARIO)
+        Rol rol = rolRepositorio.findByPrivilegio(request.getRol())
                 .orElseThrow(() -> new RuntimeException("Rol no registrado"));
         Usuario usuario = Usuario.builder()
                 .codigoUniversitario(request.getCodigoUniversitario())
@@ -60,7 +61,7 @@ public class AuthServicio {
                 new UsernamePasswordAuthenticationToken(
                         request.getCorreoInstitucional(),
                         request.getContrasena()
-                        )
+                )
         );
         Usuario usuario = usuarioRepositorio.findByCorreoInstitucional(request.getCorreoInstitucional())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
@@ -116,5 +117,22 @@ public class AuthServicio {
                 .usuario(usuario)
                 .build();
         tokenRepositorio.save(token);
+    }
+
+    public boolean logout(String id) {
+        Optional<Usuario> usuario = usuarioRepositorio.findById(Integer.parseInt(id));
+        if (usuario.isEmpty()) {
+            throw new UsernameNotFoundException("UsuarIO no registrado en bd");
+        }
+        Optional<List<Token>> tokens = tokenRepositorio.findAllRevokedIsFalseByUsuarioId(id);
+        if (tokens.isEmpty()) {
+            throw new RuntimeException("Lista de Tokens vacía");
+        }
+        tokens.get().forEach((token) -> {
+            token.setExpirado(true);
+            token.setRemovido(true);
+        });
+        tokenRepositorio.saveAll(tokens.get());
+        return true;
     }
 }
