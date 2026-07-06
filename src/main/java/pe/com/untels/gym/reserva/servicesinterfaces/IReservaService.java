@@ -1,14 +1,17 @@
 package pe.com.untels.gym.reserva.servicesinterfaces;
 
-import pe.com.untels.gym.reserva.entities.Reserva;
-
 import java.util.List;
 import java.util.Optional;
+import pe.com.untels.gym.reserva.entities.Reserva;
 
 public interface IReservaService {
-    public List<Reserva> list();
-    public Reserva insert(Reserva r);
-    public Optional<Reserva> listId(int id);
-    public List<Reserva> historialReserva(int idUsuario);
+    List<Reserva> list();
+
+    Reserva insert(Reserva r);
+
+    Optional<Reserva> listId(int id);
+
+    List<Reserva> historialReserva(int idUsuario);
+
     void cambiarEstado(int idEstado, Reserva.EstadoReserva estadoReserva);
 }
