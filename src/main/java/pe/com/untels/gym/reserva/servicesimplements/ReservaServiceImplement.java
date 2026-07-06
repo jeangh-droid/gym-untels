@@ -39,4 +39,14 @@ public class ReservaServiceImplement implements IReservaService {
             )
         );
     }
+
+    @Override
+    public void cambiarEstado(int idEstado, Reserva.EstadoReserva estadoReserva) {
+        Optional<Reserva> reserva = rR.findById(idEstado);
+        if (reserva.isEmpty()) {
+            throw new RuntimeException("Id no registrado");
+        }
+        reserva.get().setEstado(estadoReserva);
+        rR.save(reserva.get());
+    }
 }
