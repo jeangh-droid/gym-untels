@@ -9,3 +9,4 @@ public interface IUsuarioServicio {
     List<UsuarioResponseDTO> listarUsuarios();
     UsuarioDatosDTO perfil(Integer id);
 }
+
