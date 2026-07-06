@@ -1,9 +1,17 @@
 package pe.com.untels.gym.categoriaimc.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "CategoriaIMC")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "categorias_imc")
 public class CategoriaImc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,46 +25,4 @@ public class CategoriaImc {
 
     @Column(name = "rangoMax",nullable = false)
     private int rangoMax;
-
-    public CategoriaImc() {
-    }
-
-    public CategoriaImc(int idCategoria, String nombre, int rangoMin, int rangoMax) {
-        this.idCategoria = idCategoria;
-        this.nombre = nombre;
-        this.rangoMin = rangoMin;
-        this.rangoMax = rangoMax;
-    }
-
-    public int getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getRangoMin() {
-        return rangoMin;
-    }
-
-    public void setRangoMin(int rangoMin) {
-        this.rangoMin = rangoMin;
-    }
-
-    public int getRangoMax() {
-        return rangoMax;
-    }
-
-    public void setRangoMax(int rangoMax) {
-        this.rangoMax = rangoMax;
-    }
 }
