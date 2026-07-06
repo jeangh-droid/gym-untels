@@ -27,4 +27,14 @@ public class GrupoMuscularServiceImplement implements IGrupoMuscularService {
     public Optional<GrupoMuscular> listId(int id) {
         return gmR.findById(id);
     }
+
+    @Override
+    public void delete(int id) {
+        gmR.deleteById(id);
+    }
+
+    @Override
+    public GrupoMuscular update(GrupoMuscular gm) {
+        return gmR.save(gm);
+    }
 }
